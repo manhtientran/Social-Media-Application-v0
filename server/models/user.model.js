@@ -1,5 +1,6 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
 import sequelize from "../sequelize.js";
+import crypto from "crypto";
 
 class User extends Model {
   authenticate(plainText) {
@@ -47,16 +48,15 @@ User.init(
     salt: DataTypes.STRING,
     password: {
       type: DataTypes.VIRTUAL,
-      allowNull: false,
 
-      set(password) {
-        this.password = password;
+      set(value) {
+        this._password = value;
         this.salt = this.makeSalt();
-        this.hashed_password = this.encryptPassword(password);
+        this.hashed_password = this.encryptPassword(value);
       },
 
       get() {
-        return this.password;
+        return this._password;
       },
     },
   },

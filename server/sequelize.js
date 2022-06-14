@@ -9,7 +9,7 @@ sequelize
     console.log("Connection has been established successfully");
   })
   .catch((error) => {
-    "Unable to connect to the database ", error;
+    console.log("Unable to connect to the database ", error);
   });
 
 export default sequelize;
